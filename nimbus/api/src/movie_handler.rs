@@ -1,7 +1,8 @@
 use shared::response_models::{Response, ResponseBody};
 use application::movie::read;
 use application::user::read as read_user;
-use domain::models::{Movie, User};
+use application::genre::read as read_genre;
+use domain::models::{Movie, User, Genre};
 use rocket::{get};
 use rocket::response::status::{NotFound};
 use rocket::serde::json::Json;
@@ -26,6 +27,14 @@ pub fn list_movie_handler(movie_id: i32) -> Result<String, NotFound<String>> {
 pub fn list_users_handler() -> String {
     let users: Vec<User> = read_user::list_users();
     let response = Response { body: ResponseBody::Users(users) };
+
+    serde_json::to_string(&response).unwrap()
+}
+
+#[get("/genres")]
+pub fn list_genres_handler() -> String {
+    let genres: Vec<Genre> = read_genre::list_genres();
+    let response = Response { body: ResponseBody::Genres(genres) };
 
     serde_json::to_string(&response).unwrap()
 }

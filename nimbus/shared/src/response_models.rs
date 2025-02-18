@@ -1,4 +1,4 @@
-use domain::models::{Movie, User};
+use domain::models::{Movie, User, Genre};
 use rocket::serde::Serialize;
 
 #[derive(Serialize)]
@@ -7,7 +7,9 @@ pub enum ResponseBody {
     Movie(Movie),
     Movies(Vec<Movie>),
     User(User),
-    Users(Vec<User>)
+    Users(Vec<User>),
+    Genre(Genre),
+    Genres(Vec<Genre>)
 }
 
 #[derive(Serialize)]

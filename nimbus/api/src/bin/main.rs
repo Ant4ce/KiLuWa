@@ -8,5 +8,6 @@ fn rocket() -> _ {
             movie_handler::list_movie_handler, 
             movie_handler::list_movies_handler,
             movie_handler::list_users_handler,
+            movie_handler::list_genres_handler,
         ])
 }
