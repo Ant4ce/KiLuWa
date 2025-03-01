@@ -6,6 +6,7 @@ fn rocket() -> _ {
     rocket::build()
         .mount("/api", routes![
             route_handler::list_movie_handler, 
+            route_handler::create_movie_entry_handler,
             route_handler::list_movies_handler,
             route_handler::list_users_handler,
             route_handler::list_genres_handler,

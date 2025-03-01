@@ -1,14 +1,15 @@
 use shared::response_models::{Response, ResponseBody};
 use application::movie::read as read_movie;
+use application::movie::create as movie_create;
 use application::user::read as read_user;
 use application::genre::read as read_genre;
 use application::keyword::read as read_keyword;
 use application::relation::read as read_relation;
 use application::categorized::read as read_category;
 use application::rating::read as read_rating;
-use domain::models::{Movie, User, Genre, Keyword, KeyRelationStrength, MovieCategorized, UserRating};
-use rocket::{get};
-use rocket::response::status::{NotFound};
+use domain::models::{Movie, NewMovie, User, Genre, Keyword, KeyRelationStrength, MovieCategorized, UserRating};
+use rocket::{get, post};
+use rocket::response::status::{NotFound, Created};
 use rocket::serde::json::Json;
 
 #[get("/movies")]
@@ -17,6 +18,11 @@ pub fn list_movies_handler() -> String {
     let response = Response { body: ResponseBody::Movies(movies) };
 
     serde_json::to_string(&response).unwrap()
+}
+
+#[post("/new_movie", format = "application/json", data="<movie>")]
+pub fn create_movie_entry_handler(movie: Json<NewMovie>) -> Created<String> {
+    movie_create::create_movie(movie)
 }
 
 #[get("/movie/<movie_id>")]

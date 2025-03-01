@@ -3,6 +3,7 @@ use diesel::prelude::*;
 use rocket::serde::{Deserialize, Serialize};
 use std::cmp::{Ord, Eq, PartialOrd, PartialEq};
 
+//////////////////////////////////////////MOVIES//////////////////////////
 
 #[derive(Queryable, Selectable, Serialize, Ord, Eq, PartialEq, PartialOrd)]
 #[serde(crate = "rocket::serde")]
@@ -16,6 +17,18 @@ pub struct Movie {
     pub rating: Option<i32>,
     pub release_year: Option<i32>,
 }
+
+#[derive(Insertable, Deserialize)]
+#[diesel(table_name = movies)]
+pub struct NewMovie {
+    pub name: String,
+    pub description: Option<String>,
+    pub poster: Option<String>,
+    pub rating: Option<i32>,
+    pub release_year: i32,
+}
+
+//////////////////////////////////GENRE//////////////////////////////////
 
 #[derive(Queryable, Selectable, Serialize, Ord, Eq, PartialEq, PartialOrd)]
 #[serde(crate = "rocket::serde")]
